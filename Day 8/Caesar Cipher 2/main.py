@@ -1,3 +1,5 @@
+from cgitb import reset
+
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
@@ -28,19 +30,14 @@ def decrypt(original_text, shift_amount):
     print(deciphered_text)
 
 def caesar(option, message, shift_amount):
-    if option == "encode":
-        cipher_text = ""
-        for letter in message:
-            shifted_position = alphabet.index(letter) + shift_amount
-            shifted_position %= len(alphabet)
-            cipher_text += alphabet[shifted_position]
-        print(f"Here is the encoded result: {cipher_text}")
-    elif option == "decode":
-        deciphered_text = ""
-        for char in message:
-            shifted_position = alphabet.index(char) - shift_amount
-            deciphered_text += alphabet[shifted_position]
-        print(f"Here is the decoded result: {deciphered_text}")
+    result = ""
+    for char in message:
+        if option == "decode":
+            shift_amount *= -1
+        shifted_position = alphabet.index(char) + shift_amount
+        shifted_position %= len(alphabet)
+        result += alphabet[shifted_position]
+    print(f"Your result is: {result}")
 
 caesar(direction, text, shift)
 
